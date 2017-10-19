@@ -1,0 +1,61 @@
+<!doctype html>
+
+<style>
+    body {
+        margin: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    td {
+        width: 4px;
+        height: 4px;
+        padding: 0;
+    }
+
+    div {
+        width: 4px;
+        height: 4px;
+    }
+
+    .color1 {
+        background: black;
+    }
+
+    .color2 {
+        background: aqua;
+    }
+</style>
+
+<table id="test"></table>
+<p id="time"></p>
+<script>
+    var table = document.getElementById("test");
+    for (var i = 0; i < 200; i++) {
+        var tr = document.createElement("tr");
+        for (var j = 0; j < 200; j++) {
+            var td = document.createElement("td");
+            var div = document.createElement("div");
+            div.style.background = ((i + j) % 2 ? "black" : "aqua");
+            td.appendChild(div);
+            tr.appendChild(td);
+        }
+        table.appendChild(tr);
+    }
+    setInterval(() => {
+        var start = new Date()
+        Array.prototype.forEach.call(table.children, (tr) => {
+            Array.prototype.forEach.call(tr.children, (td) => {
+                // if (td.children[0].style.background === 'black') {
+                //     td.children[0].style.background = 'aqua';
+                // } else {
+                //     td.children[0].style.background = 'black';
+                // }
+                td.children[0].style.background = "#" + Math.random().toString().substr(2,3);
+            })
+        })
+        document.getElementById("time").innerText = (new Date() - start);
+    }, 1);
+</script>
